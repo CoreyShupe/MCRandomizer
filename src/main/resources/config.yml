@@ -1,3 +1,3 @@
-randomize-block-drops: true
-randomize-entity-drops: true
-randomize-chest-loot: true
+randomize-block-drops: true # Set to true to randomize block loot table
+randomize-entity-drops: true # Set to true to randomize entity loot table
+randomize-chest-loot: true # Set to true to randomize chest loot table
