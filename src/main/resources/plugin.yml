@@ -1,0 +1,5 @@
+name: ${project.name}
+version: ${project.version}
+main: me.fixed.mcrandomizer.MCRandomizerPlugin
+description: ${project.description}
+author: FiXed
