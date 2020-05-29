@@ -1,5 +1,6 @@
 package me.fixed.mcrandomizer;
 
+import joptsimple.internal.Strings;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -18,6 +19,26 @@ public class SectionedHashMap<K, V> extends HashMap<K, V> {
         this.sectionedMap = new HashMap<>();
         this.sectionGetter = sectionGetter;
         computeSections();
+    }
+
+    public @NotNull Map<String, Map<String, Integer>> snapshot(@NotNull Function<K, String> kToStringFunction) {
+        Map<String, Map<String, Integer>> map = new HashMap<>(sectionedMap.size());
+        sectionedMap.forEach((section, pair) -> {
+            List<K> k = pair.getLeft();
+            Map<String, Integer> stringIntegerMap = new HashMap<>(k.size());
+            for (int i = 0; i < k.size(); i++) {
+                stringIntegerMap.put(kToStringFunction.apply(k.get(i)), i);
+            }
+            map.put(section, stringIntegerMap);
+        });
+        return map;
+    }
+
+    public void loadSnapshot(@NotNull Map<String, Map<String, Integer>> snapshot, @NotNull Function<String, K> stringKFunction) {
+        snapshot.forEach((section, map) -> {
+            List<V> right = sectionedMap.get(section).getRight();
+            map.forEach((kString, i) -> replace(stringKFunction.apply(kString), right.get(i)));
+        });
     }
 
     public void shuffleSection(String section) {

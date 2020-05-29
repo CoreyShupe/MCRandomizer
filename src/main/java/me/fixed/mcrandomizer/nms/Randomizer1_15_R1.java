@@ -40,6 +40,10 @@ public class Randomizer1_15_R1 implements Randomizer {
         injectTable();
     }
 
+    @Override public @NotNull Logger getLogger() {
+        return logger;
+    }
+
     private void injectTable() {
         logger.log(Level.INFO, "Injecting custom table");
         LootTableRegistry registry = ((CraftServer) Bukkit.getServer()).getServer().getLootTableRegistry();
@@ -55,25 +59,29 @@ public class Randomizer1_15_R1 implements Randomizer {
         logger.log(Level.INFO, "Custom table injected");
     }
 
-    @Override public void randomizeBlockLootTable() {
+    @Override public void randomizeBlockLootTable0() {
         if (injectedMap == null) throw new IllegalStateException("Injected table not yet registered.");
-        logger.log(Level.INFO, "Randomizing block loot table...");
         injectedMap.shuffleSection(Section.BLOCKS.key);
-        logger.log(Level.INFO, "Block loot table randomized.");
     }
 
-    @Override public void randomizeEntityLootTable() {
+    @Override public void randomizeEntityLootTable0() {
         if (injectedMap == null) throw new IllegalStateException("Injected table not yet registered.");
-        logger.log(Level.INFO, "Randomizing entity loot table...");
         injectedMap.shuffleSection(Section.ENTITIES.key);
-        logger.log(Level.INFO, "Entity loot table randomized.");
     }
 
-    @Override public void randomizeChestLootTable() {
+    @Override public void randomizeChestLootTable0() {
         if (injectedMap == null) throw new IllegalStateException("Injected table not yet registered.");
-        logger.log(Level.INFO, "Randomizing chest loot table...");
         injectedMap.shuffleSection(Section.CHESTS.key);
-        logger.log(Level.INFO, "Chest loot table randomized.");
+    }
+
+    @Override public void loadSnapshot(@NotNull Map<String, Map<String, Integer>> snapshot) {
+        if (injectedMap == null) throw new IllegalStateException("Injected table not yet registered.");
+        injectedMap.loadSnapshot(snapshot, MinecraftKey::new);
+    }
+
+    @Override public @NotNull Map<String, Map<String, Integer>> generateSnapshot() {
+        if (injectedMap == null) throw new IllegalStateException("Injected table not yet registered.");
+        return injectedMap.snapshot(MinecraftKey::getKey);
     }
 
     private enum Section {

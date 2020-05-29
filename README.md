@@ -1,6 +1,15 @@
 # MC Randomizer
 This project is a passion project to see how far I could mess with MC loot tables.
 
+## Commands
+|Command|Use|
+|:---|:---|
+|/randomizer|Displays a help message for randomizer.|
+|/randomizer snapshot|Saves a snapshot of the current loot table.|
+|/randomizer blocks|Randomizes the block loot table.|
+|/randomizer entities|Randomizes the entity loot table.|
+|/randomizer chests|Randomizes the chest loot table.|
+
 ## Supported versions:
 * 1.15.2
 

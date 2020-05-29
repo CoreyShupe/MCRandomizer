@@ -3,3 +3,13 @@ version: ${project.version}
 main: me.fixed.mcrandomizer.MCRandomizerPlugin
 description: ${project.description}
 author: FiXed
+
+commands:
+  randomizer:
+    permission: "randomizer.admin"
+    description: "Base command for randomizer."
+
+permissions:
+  randomizer.admin:
+    description: "Gives permission for all /randomizer commands."
+    default: op

@@ -1,3 +1,4 @@
+prioritize-snapshot: true # This makes sure to load the randomization from the snapshot instead of initializing a new random loot table
 randomize-block-drops: true # Set to true to randomize block loot table
 randomize-entity-drops: true # Set to true to randomize entity loot table
 randomize-chest-loot: true # Set to true to randomize chest loot table
