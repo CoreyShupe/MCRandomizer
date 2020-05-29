@@ -1,7 +1,7 @@
 package me.fixed.mcrandomizer;
 
-import joptsimple.internal.Strings;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.function.Function;
@@ -71,7 +71,7 @@ public class SectionedHashMap<K, V> extends HashMap<K, V> {
         pair.getRight().add(v);
     }
 
-    @Override public V put(K k, V v) {
+    @Override public @Nullable V put(K k, V v) {
         boolean alterMap = !containsKey(k);
         V got = super.put(k, v);
         if (alterMap) {

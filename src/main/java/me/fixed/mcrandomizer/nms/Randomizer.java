@@ -65,7 +65,7 @@ public interface Randomizer {
 
     @NotNull Map<String, Map<String, Integer>> generateSnapshot();
 
-    default void info(String message) {
+    default void info(@NotNull String message) {
         getLogger().log(Level.INFO, message);
     }
 

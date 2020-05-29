@@ -1,19 +1,21 @@
 package me.fixed.mcrandomizer;
 
-public class Pair<K, V> {
-    private final K k;
-    private final V v;
+import org.jetbrains.annotations.NotNull;
 
-    public Pair(K k, V v) {
+public class Pair<K, V> {
+    @NotNull private final K k;
+    @NotNull private final V v;
+
+    public Pair(@NotNull K k, @NotNull V v) {
         this.k = k;
         this.v = v;
     }
 
-    public K getLeft() {
+    public @NotNull K getLeft() {
         return k;
     }
 
-    public V getRight() {
+    public @NotNull V getRight() {
         return v;
     }
 }

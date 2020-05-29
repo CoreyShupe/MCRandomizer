@@ -22,7 +22,7 @@ public class Randomizer1_15_R1 implements Randomizer {
         assert LOOT_TABLE_MAP_FIELD != null;
     }
 
-    private static Field lootTableMapField() {
+    private static @Nullable Field lootTableMapField() {
         try {
             return LootTableRegistry.class.getDeclaredField("c");
         } catch (NoSuchFieldException e) {
