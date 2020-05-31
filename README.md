@@ -12,6 +12,9 @@ This project is a passion project to see how far I could mess with MC loot table
 
 ## Supported versions:
 * 1.15.2
+* 1.14.4
+* 1.13.2
+* 1.13.1
 
 ## Loot tables able to be randomized
 * Block loot table
