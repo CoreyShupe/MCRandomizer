@@ -1,5 +1,6 @@
 package me.fixed.mcrandomizer;
 
+import me.fixed.mcrandomizer.nms.Randomizer;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -31,9 +32,11 @@ public class RandomizerCommand implements CommandExecutor, TabCompleter {
                     ChatColor.YELLOW + "/randomizer help " + ChatColor.GRAY + "Displays this message.";
 
     @NotNull private final MCRandomizerPlugin plugin;
+    @NotNull private final Randomizer randomizer;
 
     public RandomizerCommand(@NotNull MCRandomizerPlugin plugin) {
         this.plugin = plugin;
+        this.randomizer = plugin.getRandomizer();
     }
 
     @Override
@@ -44,18 +47,30 @@ public class RandomizerCommand implements CommandExecutor, TabCompleter {
         }
         switch (args[0].toLowerCase(Locale.ENGLISH)) {
             case "blocks":
+                if (!randomizer.blockLootTableSupported()) {
+                    sender.sendMessage(ChatColor.RED + "Block loot table unsupported on your version.");
+                    break;
+                }
                 sender.sendMessage(ChatColor.RED + "Randomizing block loot table...");
-                plugin.getRandomizer().randomizeBlockLootTable();
+                randomizer.randomizeBlockLootTable();
                 sender.sendMessage(ChatColor.GREEN + "Block loot table randomized.");
                 break;
             case "entities":
+                if (!randomizer.entityLootTableSupported()) {
+                    sender.sendMessage(ChatColor.RED + "Entity loot table unsupported on your version.");
+                    break;
+                }
                 sender.sendMessage(ChatColor.RED + "Randomizing entity loot table...");
-                plugin.getRandomizer().randomizeEntityLootTable();
+                randomizer.randomizeEntityLootTable();
                 sender.sendMessage(ChatColor.GREEN + "Entity loot table randomized.");
                 break;
             case "chests":
+                if (!randomizer.chestLootTableSupported()) {
+                    sender.sendMessage(ChatColor.RED + "Chest loot table unsupported on your version.");
+                    break;
+                }
                 sender.sendMessage(ChatColor.RED + "Randomizing chest loot table...");
-                plugin.getRandomizer().randomizeChestLootTable();
+                randomizer.randomizeChestLootTable();
                 sender.sendMessage(ChatColor.GREEN + "Chest loot table randomized.");
                 break;
             case "snapshot":

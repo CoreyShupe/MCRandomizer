@@ -36,8 +36,10 @@ public class SectionedHashMap<K, V> extends HashMap<K, V> {
 
     public void loadSnapshot(@NotNull Map<String, Map<String, Integer>> snapshot, @NotNull Function<String, K> stringKFunction) {
         snapshot.forEach((section, map) -> {
-            List<V> right = sectionedMap.get(section).getRight();
-            map.forEach((kString, i) -> replace(stringKFunction.apply(kString), right.get(i)));
+            if (sectionedMap.containsKey(section)) {
+                List<V> right = sectionedMap.get(section).getRight();
+                map.forEach((kString, i) -> replace(stringKFunction.apply(kString), right.get(i)));
+            }
         });
     }
 

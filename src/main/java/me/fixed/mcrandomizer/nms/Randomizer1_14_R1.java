@@ -1,11 +1,11 @@
 package me.fixed.mcrandomizer.nms;
 
 import me.fixed.mcrandomizer.SectionedHashMap;
-import net.minecraft.server.v1_15_R1.LootTable;
-import net.minecraft.server.v1_15_R1.LootTableRegistry;
-import net.minecraft.server.v1_15_R1.MinecraftKey;
+import net.minecraft.server.v1_14_R1.LootTable;
+import net.minecraft.server.v1_14_R1.LootTableRegistry;
+import net.minecraft.server.v1_14_R1.MinecraftKey;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_15_R1.CraftServer;
+import org.bukkit.craftbukkit.v1_14_R1.CraftServer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Randomizer1_15_R1 extends MapInjectorRandomizer<MinecraftKey, LootTable> {
+public class Randomizer1_14_R1 extends MapInjectorRandomizer<MinecraftKey, LootTable> {
     private final static Field LOOT_TABLE_MAP_FIELD; // not null due to static assertion
 
     static {
@@ -32,7 +32,7 @@ public class Randomizer1_15_R1 extends MapInjectorRandomizer<MinecraftKey, LootT
         }
     }
 
-    public Randomizer1_15_R1(@NotNull Logger logger) {
+    public Randomizer1_14_R1(@NotNull Logger logger) {
         super(logger, MinecraftKey::new, MinecraftKey::getKey);
     }
 

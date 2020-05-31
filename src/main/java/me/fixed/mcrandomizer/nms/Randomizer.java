@@ -2,6 +2,7 @@ package me.fixed.mcrandomizer.nms;
 
 import me.fixed.mcrandomizer.SnapshotSerializable;
 import org.bukkit.Server;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
@@ -12,6 +13,8 @@ import java.util.logging.Logger;
 public interface Randomizer {
     @NotNull Logger getLogger();
 
+    boolean blockLootTableSupported();
+
     default void randomizeBlockLootTable() {
         info("Randomizing block loot table...");
         randomizeBlockLootTable0();
@@ -20,6 +23,8 @@ public interface Randomizer {
 
     void randomizeBlockLootTable0();
 
+    boolean entityLootTableSupported();
+
     default void randomizeEntityLootTable() {
         info("Randomizing entity loot table...");
         randomizeEntityLootTable0();
@@ -27,6 +32,8 @@ public interface Randomizer {
     }
 
     void randomizeEntityLootTable0();
+
+    boolean chestLootTableSupported();
 
     default void randomizeChestLootTable() {
         info("Randomizing chest loot table...");
@@ -48,7 +55,7 @@ public interface Randomizer {
         }
         info("Loot table snapshot loaded.");
     }
-    
+
     void loadSnapshot(@NotNull Map<String, Map<String, Integer>> snapshot);
 
     default void saveSnapshot(@NotNull File file) {
@@ -69,12 +76,17 @@ public interface Randomizer {
         getLogger().log(Level.INFO, message);
     }
 
-    static @NotNull Randomizer loadRandomizer(@NotNull Logger logger, @NotNull Server server) {
-        String version = server.getClass().getPackage().getName().split("\\.")[3];
-        //noinspection SwitchStatementWithTooFewBranches
+    static @NotNull Randomizer loadRandomizer(@NotNull JavaPlugin plugin) {
+        String version = plugin.getServer().getClass().getPackage().getName().split("\\.")[3];
         switch (version) {
+            case "v1_13_R1":
+                return new Randomizer1_13_R1(plugin, plugin.getLogger());
+            case "v1_13_R2":
+                return new Randomizer1_13_R2(plugin, plugin.getLogger());
+            case "v1_14_R1":
+                return new Randomizer1_14_R1(plugin.getLogger());
             case "v1_15_R1":
-                return new Randomizer1_15_R1(logger);
+                return new Randomizer1_15_R1(plugin.getLogger());
             default:
                 throw new UnsupportedOperationException("Version " + version + " unsupported");
         }
